@@ -20,3 +20,6 @@ variables:
   # For pipeline reference
   resource_group: default_rs_group
   aml_workspace: AZ_ML_OPS_Training
+
+  # data file
+  data_file: used-cars-data
