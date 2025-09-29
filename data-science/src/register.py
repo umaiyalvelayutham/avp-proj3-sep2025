@@ -14,9 +14,9 @@ def parse_args():
     '''Parse input arguments'''
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--model_name', type=_____, help='Name under which model will be registered')  # Hint: Specify the type for model_name (str)
-    parser.add_argument('--model_path', type=_____, help='Model directory')  # Hint: Specify the type for model_path (str)
-    parser.add_argument("--model_info_output_path", type=_____, help="Path to write model info JSON")  # Hint: Specify the type for model_info_output_path (str)
+    parser.add_argument('--model_name', type=str, help='Name under which model will be registered')  # Hint: Specify the type for model_name (str)
+    parser.add_argument('--model_path', type=str, help='Model directory')  # Hint: Specify the type for model_path (str)
+    parser.add_argument("--model_info_output_path", type=str, help="Path to write model info JSON")  # Hint: Specify the type for model_info_output_path (str)
     args, _ = parser.parse_known_args()
     print(f'Arguments: {args}')
 
@@ -30,9 +30,17 @@ def main(args):
 
     # -----------  WRITE YOR CODE HERE -----------
     
-    # Step 1: Load the model from the specified path using `mlflow.sklearn.load_model` for further processing.  
-    # Step 2: Log the loaded model in MLflow with the specified model name for versioning and tracking.  
-    # Step 3: Register the logged model using its URI and model name, and retrieve its registered version.  
+    # Load the trained model from the provided path
+    model = mlflow.sklearn.load_model(args.model)  # _______ (Fill the code to load model from args.model)
+
+    print("Registering the best trained used cars price prediction model")
+    
+    # Register the model in the MLflow Model Registry under the name "price_prediction_model"
+    mlflow.sklearn.log_model(
+        sk_model=model,
+        registered_model_name="used_cars_price_prediction_model",  # Specify the name under which the model will be registered
+        artifact_path="random_forest_price_regressor"  # Specify the path where the model artifacts will be stored
+    )
     # Step 4: Write model registration details, including model name and version, into a JSON file in the specified output path.  
 
 
@@ -44,9 +52,9 @@ if __name__ == "__main__":
     args = parse_args()
     
     lines = [
-        f"Model name: {args.________}",
-        f"Model path: {args.________}",
-        f"Model info output path: {args.________}"
+        f"Model name: {args.model_name}",
+        f"Model path: {args.model_path}",
+        f"Model info output path: {args.model_info_output_path}"
     ]
 
     for line in lines:
