@@ -52,8 +52,21 @@ def main(args):
     train_df, test_df = train_test_split(df, test_size=args.test_train_ratio, random_state=42)
 
     # Save train and test data
-    os.makedirs(args.train_data, exist_ok=True)
-    os.makedirs(args.test_data, exist_ok=True)
+    # No need to call os.makedirs if the path is provided by Azure ML outputs
+    # as the directory should already exist.
+    # If it doesn't, this line is fine, but the problem is with the path content. os.makedirs(args.train_data, exist_ok=True)
+
+    # Use pathlib for cleaner and more robust path handling
+    train_path = Path(args.train_data) / "data.csv"
+    test_path = Path(args.test_data) / "data.csv"
+
+    # Save the files directly to the constructed paths
+    train_df.to_csv(train_path, index=False)
+    test_df.to_csv(test_path, index=False)
+
+    logging.info(f"Saved train data to {train_path}")
+    logging.info(f"Saved test data to {test_path}")
+
     train_df.to_csv(os.path.join(args.train_data, "data.csv"), index=False)
     test_df.to_csv(os.path.join(args.test_data, "data.csv"), index=False)
     logging.info(f"Saved train data to {os.path.join(args.train_data, 'data.csv')}")
