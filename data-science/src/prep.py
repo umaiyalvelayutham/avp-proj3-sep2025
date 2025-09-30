@@ -16,7 +16,7 @@ def parse_args():
     '''Parse input arguments'''
 
     parser = argparse.ArgumentParser("prep")  # Create an ArgumentParser object
-    parser.add_argument("--raw_data", type=str, help="Path to raw data")  # Specify the type for raw data (str)
+    parser.add_argument("--data", type=str, help="Path to raw data")  # Specify the type for raw data (str)
     parser.add_argument("--train_data", type=str, help="Path to train dataset")  # Specify the type for train data (str)
     parser.add_argument("--test_data", type=str, help="Path to test dataset")  # Specify the type for test data (str)
     parser.add_argument("--test_train_ratio", type=float, default=0.2, help="Test-train ratio")  # Specify the type (float) and default value (0.2) for test-train ratio
@@ -70,7 +70,7 @@ if __name__ == "__main__":
     args = parse_args()  # Call the function to parse arguments
 
     lines = [
-        f"Raw data path: {args.raw_data}",  # Print the raw_data path
+        f"Raw data path: {args.data}",  # Print the raw_data path
         f"Train dataset output path: {args.train_data}",  # Print the train_data path
         f"Test dataset path: {args.test_data}",  # Print the test_data path
         f"Test-train ratio: {args.test_train_ratio}",  # Print the test_train_ratio
