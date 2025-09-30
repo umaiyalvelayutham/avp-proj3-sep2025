@@ -54,7 +54,10 @@ def main(args):
     # Save train and test data
     # No need to call os.makedirs if the path is provided by Azure ML outputs
     # as the directory should already exist.
-    # If it doesn't, this line is fine, but the problem is with the path content. os.makedirs(args.train_data, exist_ok=True)
+    # If it doesn't, this line is fine, but the problem is with the path content. 
+    os.makedirs(args.train_data, exist_ok=True)
+    os.makedirs(args.test_data, exist_ok=True)
+
 
     # Use pathlib for cleaner and more robust path handling
     train_path = Path(args.train_data) / "data.csv"
